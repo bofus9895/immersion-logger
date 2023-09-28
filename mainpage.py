@@ -1,48 +1,28 @@
 import streamlit as st
 import pandas as pd
 import matplotlib as mp
-import numpy as np
+from streamlit import session_state as ss
+
+st.header("Immersion Tracker")
+st.subheader('tracking immersion')
 
 
-st.header("Incel Tracker")
-st.subheader('tracking things for incels')
 
-chart_data = pd.DataFrame({
-    'ami1' : np.random.randn(20),
-    'ami2' : np.random.randn(20),
-    'ami3' : np.random.choice(['A','B','C'],20)
-})
+def get_data():
 
-st.bar_chart(
-    chart_data,
-    x='col1',
-    y='col2',
-    color='col3'
-)
+    if "data" not in st.session_state:
+        st.session_state.data = pd.DataFrame({"X":[1,2,3,4], "Y": [10,20,30,40]})
+    return st.session_state.data
 
-chart_data = pd.DataFrame({
-    'mg1' : np.random.randn(20),
-    'mg2' : np.random.randn(20),
-    'ami3' : np.random.choice(['A','B','C'],20)
-})
+data = get_data()
 
-st.bar_chart(
-    chart_data,
-    x='col1',
-    y='col2',
-    color='col3'
-)
+edited_data= st.table(data)
 
-chart_data = pd.DataFrame({
-    'vm1' : np.random.randn(20),
-    'vm2' : np.random.randn(20),
-    'vm3' : np.random.choice(['A','B','C'],20)
-})
+new_value = st.number_input("Enter Number of Mins", key="new_value")
+edit_index = st.number_input("Enter an index to edit:", min_value=0, max_value=len(data)-1, key="edit_index")
 
-st.bar_chart(
-    chart_data,
-    x='col1',
-    y='col2',
-    color='col3'
-)
-
+if st.button("Edit Value"):
+    data.at[edit_index, 'Y'] = new_value
+    st.session_state.data = data
+    st.experimental_rerun
+st.line_chart(data)

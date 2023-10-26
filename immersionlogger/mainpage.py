@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 from streamlit import session_state as ss
 st.title('Immersion Logger')
-st.markdown('put in numbers in all of the pages to get data plotted & get rid of the error')
+st.markdown('click on all pages to get rid of error')
 bigdata=st.dataframe({"Which day":[1,2,3,4,5,6,7], "How many minutes on shows": ss.times3, "How many minutes on books": ss.times2, "How many minutes on vns": ss.times1})
 bigdata=pd.DataFrame({"Which day":[1,2,3,4,5,6,7], "How many minutes on shows": ss.times3, "How many minutes on books": ss.times2, "How many minutes on vns": ss.times1})
 st.line_chart(bigdata)

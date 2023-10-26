@@ -1,2 +1,2 @@
-# inceltracker
-tracking items for incels
+# Immersion Logger
+Tracking items for language learners
